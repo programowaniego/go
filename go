@@ -5,3 +5,10 @@ Pionki tego samoego koloru łączą się w grupy gdy stykają się polami i maj
 Zbicie kiedy grupa nie ma oddechów
 Nie ma pasów trzeba robić ruchy
 Gra kończy się gdy graczowi skończą się pionki
+#include<stdio.h>
+void main(){
+    printf(" ____\n");
+    printf("|    |\n");
+    printf("|    |\n");
+    printf("|____|\n");
+}
