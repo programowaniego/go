@@ -12,3 +12,6 @@ void main(){
     printf("|    |\n");
     printf("|____|\n");
 }
+
+
+jako koniec gry chyba się ustali że po prostu koniec pionków
