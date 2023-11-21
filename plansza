@@ -1,0 +1,44 @@
+#include<stdio.h>
+typedef struct{
+    int rozmiar;
+    char* wartosci[1];
+}plansza;
+plansza* utworz_plansze(plansza* nowa,int rozmiar){
+    plansza* nowa_plansza = (plansza*)malloc(sizeof(plansza));
+
+    nowa_plansza->rozmiar = rozmiar;
+    nowa_plansza->wartosci = (char*)calloc(rozmiar * rozmiar,sizeof(char*));
+    for(int i = 0;i < rozmiar * rozmiar;i++)
+        nowa_plansza->wartosci[i] = "O";
+
+    return nowa_plansza;
+}
+
+void wypisz(plansza* wejscie,int rozmiar){
+    for(int i = 0;i < rozmiar;i++)
+        {
+            printf(" _____");
+        }
+    for(int k = 0;k < rozmiar;k++){
+        printf("\n|");
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("     |");
+        }
+        printf("\n|");
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("  %s  |",wejscie->wartosci[i]);
+        }
+        printf("\n|");
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("_____|");
+        }
+    }
+}
+void main()
+{
+    plansza* glowna = utworz_plansze(glowna,3);
+    wypisz(glowna,3);
+}
