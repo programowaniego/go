@@ -1,13 +1,12 @@
 #include<stdio.h>
 typedef struct{
     int rozmiar;
-    char* wartosci[1];
+    char* wartosci[169];
 }plansza;
 plansza* utworz_plansze(plansza* nowa,int rozmiar){
     plansza* nowa_plansza = (plansza*)malloc(sizeof(plansza));
 
     nowa_plansza->rozmiar = rozmiar;
-    nowa_plansza->wartosci = (char*)calloc(rozmiar * rozmiar,sizeof(char*));
     for(int i = 0;i < rozmiar * rozmiar;i++)
         nowa_plansza->wartosci[i] = "O";
 
