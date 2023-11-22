@@ -1,0 +1,11 @@
+#include<stdio.h>
+#include "Plansza.c"
+#include "Stawianie.c"
+#include "grupy.c"
+void main()
+{
+    plansza* stol = utworz_plansze(stol,13);
+    postaw_pionek(stol,1,"X");
+    wypisz(stol,13);
+    
+}
