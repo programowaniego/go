@@ -1,0 +1,28 @@
+#ifndef Stawianie.c 
+void postaw_pionek(plansza* stol,int pole,char gracz[1])
+{
+    stol->wartosci[pole] = gracz;
+}
+int styk(pole){
+    if(stol->wartosci[pole] - 1 == " " || stol->wartosci[pole] + 1 == " " || stol->wartosci[pole] - rozmiar == " " || stol->wartosci[pole] + rozmiar == " ") //sprawdzenie styku z danym polem
+        return 1;
+    else 
+        return 0;
+}
+int oddechy(int pole){
+    int oddechy = 4;
+    for(int i = 0;i < 4;i++){
+        if(styk(pole))
+            oddechy -= 1;
+    }
+    return oddechy;
+}
+void niszczenie(int rozmiar){
+    for(int i = 0;i < rozmiar * rozmiar;i++){
+        if(oddechy == 0){
+            if()
+        }
+    }
+}
+
+#endif
