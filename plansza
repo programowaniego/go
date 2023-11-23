@@ -1,92 +1,49 @@
-#include<stdio.h>
-#include "Plansza.c"
-int oddechy(plansza* stol,int pole,int rozmiar){
-    int oddechy = 4;
-    if(pole % rozmiar != rozmiar - 1){
-        
-        if(stol->wartosci[pole + 1] != " ")
-            oddechy -= 1;
-        }
-        
-        else
-            oddechy -= 1;
-    
-    if(pole % rozmiar != 0){
-        
-        if(stol->wartosci[pole - 1] != " ")
-            oddechy -= 1;
-    }
-    
-    else
-        oddechy -= 1;
-        
-    if(pole >= rozmiar){
-        
-        if(stol->wartosci[pole - rozmiar] != " ")
-                oddechy -= 1;
-            }
-    else
-        oddechy -= 1;
-    
-    if(pole < rozmiar * (rozmiar - 1)){
-            
-            if(stol->wartosci[pole + rozmiar] != " ")
-                oddechy -= 1;
-            }
-    else
-        oddechy -= 1;
-
-    return oddechy;
-}
-void niszczenie(plansza* stol,int rozmiar,int pole,int* sprawdzone)
+#ifndef Plansza.c
+typedef struct plansza
 {
-    int dodatki[] = {1,-1,13,-13};
-    int brachole = 0;
-    if(stol->wartosci[pole] != " " && sprawdzone[pole] != 1 && oddechy(stol,pole,rozmiar) == 0){
-        for(int i = 0;i < 4;i++){
-            
-            if(stol->wartosci[pole] == stol->wartosci[pole + dodatki[i]]){
-                printf("%d",pole);
-                sprawdzone[pole] = 1;
-                brachole++;
-                niszczenie(stol,rozmiar,pole + dodatki[i],sprawdzone);
-            }
-            
-            if(brachole == 0) //uśmiercanie bezbrachola
-            {
-                stol->wartosci[pole] = " ";
-                for(int j = 0;j < rozmiar * rozmiar;j++){
-                    if(sprawdzone[j]){
-                        stol->wartosci[j] = " ";
-                    }
-                }
-            }
+    int rozmiar;
+    char* wartosci[169];    //reprezentacja stanu gry
+}plansza;
+plansza* utworz_plansze(plansza* nowa,int rozmiar){
+    plansza* nowa_plansza = (plansza*)malloc(sizeof(plansza));
+
+    nowa_plansza->rozmiar = rozmiar;
+    for(int i = 0;i < rozmiar * rozmiar;i++)
+        nowa_plansza->wartosci[i] = " ";
+
+    return nowa_plansza;
+}
+void wypisz(plansza* wejscie,int rozmiar){
+    for(int i = 0;i < rozmiar;i++)
+        {
+            if(i < 10)
+                printf("   %d  ",i + 1);
+            else
+                printf("  %d  ",i + 1);
+        }
+    printf("\n");
+    for(int i = 0;i < rozmiar;i++)
+        {
+            printf(" _____");
+        }
+    for(int k = 0;k < rozmiar;k++)
+    {
+        printf("\n|");
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("     |");
+        }
+        printf("\n|");
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("  %s  |",wejscie->wartosci[k * rozmiar + i]);
+        }
+        printf("%c \n|",65 + k);
+        for(int i = 0;i < rozmiar;i++)
+        {
+            printf("_____|");
         }
     }
+    printf("\n");
 }
-
-void postaw_pionek(plansza* stol,int rozmiar,int pole,char gracz[1])
-{
-    stol->wartosci[pole] = gracz;
-    int* sprawdzone [169] = {};     //wskażnik musi być bo wywala błąd, sprawdzone to lista po to zeby nie chodził w kółko w grupie
-    for(int i = 0;i < rozmiar * rozmiar;i++){
-        niszczenie(stol,13,i,sprawdzone);
-    }
-    wypisz(stol,13);
-}
-void main()
-{
-    plansza* stol = utworz_plansze(stol,13);
-    postaw_pionek(stol,13,100,"O");
-    postaw_pionek(stol,13,101,"O");
-    postaw_pionek(stol,13,102,"O");
-    postaw_pionek(stol,13,99,"X");
-    postaw_pionek(stol,13,113,"X");
-    postaw_pionek(stol,13,114,"X");
-    postaw_pionek(stol,13,115,"X");
-    postaw_pionek(stol,13,103,"X");
-    postaw_pionek(stol,13,87,"X");
-    postaw_pionek(stol,13,88,"X");
-    postaw_pionek(stol,13,89,"X");
-    
-}
+#endif
