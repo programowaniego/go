@@ -38,31 +38,31 @@ int oddechy(plansza* stol,int pole,int rozmiar){
 
     return oddechy;
 }
-void niszczenie(plansza* stol,int rozmiar,int pole,int* sprawdzone)
+int niszczenie(plansza* stol,int rozmiar,int pole,int* sprawdzone)
 {
     int dodatki[] = {1,-1,13,-13};
-    int brachole = 0;
-    if(stol->wartosci[pole] != " " && sprawdzone[pole] != 1 && oddechy(stol,pole,rozmiar) == 0){
+    if(stol->wartosci[pole] != " " && oddechy(stol,pole,rozmiar) == 0 && sprawdzone[pole] == 0){
         for(int i = 0;i < 4;i++){
-            
-            if(stol->wartosci[pole] == stol->wartosci[pole + dodatki[i]]){
-                printf("%d",pole);
-                sprawdzone[pole] = 1;
-                brachole++;
-                niszczenie(stol,rozmiar,pole + dodatki[i],sprawdzone);
+            sprawdzone[pole] = 1;
+            if(stol->wartosci[pole] == stol->wartosci[pole + dodatki[i]] && sprawdzone[pole + dodatki[i]] == 0){
+                printf("%d",pole + dodatki[i]);
+                sprawdzone[pole + dodatki[i]] = 1;
+                if(niszczenie(stol,rozmiar,pole + dodatki[i],sprawdzone) == 0)
+                    break;
+
+
             }
-            
-            if(brachole == 0) //uśmiercanie bezbrachola
-            {
-                stol->wartosci[pole] = " ";
-                for(int j = 0;j < rozmiar * rozmiar;j++){
-                    if(sprawdzone[j]){
-                        stol->wartosci[j] = " ";
-                    }
+            for(int j = 0;j < rozmiar * rozmiar;j++){
+                stol->wartosci[pole] == " ";
+                if(sprawdzone[j]){
+                    stol->wartosci[j] = " ";
+                    sprawdzone[j] = 0;
                 }
             }
         }
     }
+    else
+        return 0;
 }
 
 void postaw_pionek(plansza* stol,int rozmiar,int pole,char gracz[1])
@@ -79,14 +79,15 @@ void main()
     plansza* stol = utworz_plansze(stol,13);
     postaw_pionek(stol,13,100,"O");
     postaw_pionek(stol,13,101,"O");
-    postaw_pionek(stol,13,102,"O");
+    postaw_pionek(stol,13,114,"O");
     postaw_pionek(stol,13,99,"X");
     postaw_pionek(stol,13,113,"X");
-    postaw_pionek(stol,13,114,"X");
+    postaw_pionek(stol,13,114,"O");
     postaw_pionek(stol,13,115,"X");
-    postaw_pionek(stol,13,103,"X");
+    postaw_pionek(stol,13,102,"X");
     postaw_pionek(stol,13,87,"X");
     postaw_pionek(stol,13,88,"X");
     postaw_pionek(stol,13,89,"X");
+    postaw_pionek(stol,13,127,"X");
     
 }
