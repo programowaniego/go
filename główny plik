@@ -8,8 +8,8 @@ int oddechy(plansza* stol,int pole,int rozmiar){
             oddechy -= 1;
         }
         
-        else
-            oddechy -= 1;
+    else
+        oddechy -= 1;
     
     if(pole % rozmiar != 0){
         
@@ -38,56 +38,51 @@ int oddechy(plansza* stol,int pole,int rozmiar){
 
     return oddechy;
 }
-int niszczenie(plansza* stol,int rozmiar,int pole,int* sprawdzone)
+int niszczenie(plansza* stol,int rozmiar,int pole,int* sprawdzone,int oddechy_grupy)
 {
     int dodatki[] = {1,-1,13,-13};
-    if(stol->wartosci[pole] != " " && oddechy(stol,pole,rozmiar) == 0 && sprawdzone[pole] == 0){
+    if(stol->wartosci[pole] != " " && sprawdzone[pole] == 0){
+        oddechy_grupy += oddechy(stol,pole,rozmiar);
+        sprawdzone[pole] = 1;
         for(int i = 0;i < 4;i++){
-            sprawdzone[pole] = 1;
             if(stol->wartosci[pole] == stol->wartosci[pole + dodatki[i]] && sprawdzone[pole + dodatki[i]] == 0){
-                printf("%d",pole + dodatki[i]);
-                sprawdzone[pole + dodatki[i]] = 1;
-                if(niszczenie(stol,rozmiar,pole + dodatki[i],sprawdzone) == 0)
-                    break;
-
-
+                oddechy_grupy += niszczenie(stol,rozmiar,pole + dodatki[i],sprawdzone,oddechy_grupy);
             }
-            for(int j = 0;j < rozmiar * rozmiar;j++){
-                stol->wartosci[pole] == " ";
-                if(sprawdzone[j]){
-                    stol->wartosci[j] = " ";
-                    sprawdzone[j] = 0;
-                }
-            }
-        }
+        } 
+        return oddechy_grupy;
     }
-    else
-        return 0;
 }
 
 void postaw_pionek(plansza* stol,int rozmiar,int pole,char gracz[1])
 {
     stol->wartosci[pole] = gracz;
-    int* sprawdzone [169] = {};     //wskażnik musi być bo wywala błąd, sprawdzone to lista po to zeby nie chodził w kółko w grupie
+    int sprawdzone [169] = {};     //wskażnik musi być bo wywala błąd, sprawdzone to lista po to zeby nie chodził w kółko w grupie
     for(int i = 0;i < rozmiar * rozmiar;i++){
-        niszczenie(stol,13,i,sprawdzone);
+        if(stol->wartosci[i] != " " && niszczenie(stol,rozmiar,i,sprawdzone,0) == 0){
+            printf("poz %d i %d\n",pole,i);
+            for(int j = 0;j < rozmiar * rozmiar;j++){
+                if(sprawdzone[j] == 1){
+                    stol->wartosci[j] = " ";
+                    sprawdzone[j] = 0;
+                }
+            }
+        }
+        int sprawdzone [169] = {};     //zerowanie listy
     }
     wypisz(stol,13);
 }
 void main()
 {
     plansza* stol = utworz_plansze(stol,13);
-    postaw_pionek(stol,13,100,"O");
-    postaw_pionek(stol,13,101,"O");
-    postaw_pionek(stol,13,114,"O");
-    postaw_pionek(stol,13,99,"X");
-    postaw_pionek(stol,13,113,"X");
-    postaw_pionek(stol,13,114,"O");
-    postaw_pionek(stol,13,115,"X");
-    postaw_pionek(stol,13,102,"X");
-    postaw_pionek(stol,13,87,"X");
-    postaw_pionek(stol,13,88,"X");
-    postaw_pionek(stol,13,89,"X");
-    postaw_pionek(stol,13,127,"X");
+    postaw_pionek(stol,13,0,"O");
+    postaw_pionek(stol,13,1,"O");
+    postaw_pionek(stol,13,14,"O");
+    postaw_pionek(stol,13,15,"O");
+    postaw_pionek(stol,13,16,"X");
+    postaw_pionek(stol,13,2,"O");
+    postaw_pionek(stol,13,13,"X");
+    postaw_pionek(stol,13,3,"X");
+    postaw_pionek(stol,13,28,"X");
+    postaw_pionek(stol,13,27,"X");
     
 }
