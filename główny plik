@@ -86,7 +86,8 @@ void losowo(plansza* stol,char gracz[1]){   //stawianie pionka w losowym miejscu
     
     
 }
-int dostepne_ruchy(plansza* stol){
+int dostepne_ruchy(plansza* stol)//tablica ruchow trzeba zrobic
+{
     int ruchy[169] = {};
     int k = 0;
     for(int i = 0;i < 169;i++){
