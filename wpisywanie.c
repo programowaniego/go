@@ -2,6 +2,8 @@
 int pozycja()
 {
 int pozycja = 0;
+ char kolumna;
+ int wiersz;
 printf("podaj pole na ktorym chcesz postawic pionek (kolumna , wiersz)(np A1)\n");  
 scanf("%c%d", &kolumna , &wiersz);
 getchar();
