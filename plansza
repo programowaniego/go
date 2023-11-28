@@ -1,8 +1,9 @@
 #ifndef Plansza.c
-#define KOLKO   "\x1b[32m"
-#define KRZYZYK "\x1b[34m"
-#define RESET   "\x1b[0m"
-#define TLO "\x1b[0m"
+//kolorki na Linuxa
+#define KOLKO   ' '//"\x1b[32m"
+#define KRZYZYK ' '//"\x1b[34m"
+#define RESET   ' '//"\x1b[0m"
+#define TLO ' '//"\x1b[0m"
 //#define TLO   "\x1b[48;2;139;69;19m"
 typedef struct plansza
 {
@@ -21,10 +22,7 @@ plansza* utworz_plansze(plansza* nowa,int rozmiar){
 void wypisz(plansza* wejscie,int rozmiar){
     for(int i = 0;i < rozmiar;i++)
         {
-            if(i < 10)
-                printf("   %s%d%s  ",RESET,i + 1,RESET);
-            else
-                printf("  %s%d%s  ",RESET,i + 1,RESET);
+                printf("   %c  ",65 + i);
         }
     printf("\n");
     for(int i = 0;i < rozmiar;i++)
@@ -36,22 +34,22 @@ void wypisz(plansza* wejscie,int rozmiar){
         printf("\n|");
         for(int i = 0;i < rozmiar;i++)
         {
-            printf("%s     %s|",TLO,RESET);
+            printf("     |");
         }
         printf("\n|");
         for(int i = 0;i < rozmiar;i++)
         {
             if(wejscie->wartosci[k * rozmiar + i] == "O")
-                printf("  %s%s%s  |",KOLKO,wejscie->wartosci[k * rozmiar + i],RESET);
+                printf("  %s  |",wejscie->wartosci[k * rozmiar + i]);
             else
-                printf("  %s%s%s  |",KRZYZYK,wejscie->wartosci[k * rozmiar + i],RESET);
+                printf("  %s  |",wejscie->wartosci[k * rozmiar + i]);
         }
-        printf("%c \n|",65 + k);
+        printf(" %d \n|",1 + k);
         for(int i = 0;i < rozmiar;i++)
         {
             printf("_____|");
         }
     }
-    printf("\n");
+    printf("\n\n");
 }
 #endif
