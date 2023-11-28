@@ -1,5 +1,5 @@
 #ifndef wpisywanie.c
-int pozycja(char kolumna , char wiersz)
+int pozycja()
 {
 int pozycja = 0;
 printf("podaj pole na ktorym chcesz postawic pionek (kolumna , wiersz)(np A1)\n");  
