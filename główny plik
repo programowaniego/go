@@ -59,9 +59,9 @@ int postaw_pionek(plansza* stol,int rozmiar,int pole,char* gracz[2])
 {
     if(stol->wartosci[pole] == " "){
         stol->wartosci[pole] = gracz;  
-        for(int i = 0;i < rozmiar * rozmiar;i++){
+        for(int i = 0;i < rozmiar * rozmiar + 1;i++){
             int sprawdzone [169] = {};     //wskażnik musi być bo wywala błąd, sprawdzone to lista po to zeby nie chodził w kółko w grupie, zerowanie listy co fora
-            if(stol->wartosci[i] != " " && liczenie_oddechow_grupy(stol,rozmiar,i,sprawdzone,0) == 0){  //grupa nie ma oddechow
+            if(i == rozmair * rozmiar ? stol->wartosci[pole] != " " && liczenie_oddechow_grupy(stol,rozmiar,pole,sprawdzone,0) == 0 : stol->wartosci[i] != " " && liczenie_oddechow_grupy(stol,rozmiar,i,sprawdzone,0) == 0 && i != pole){  //grupa nie ma oddechow
                 for(int j = 0;j < rozmiar * rozmiar;j++){
                     if(sprawdzone[j] == 1){
                         printf("zniszczono %s %d",stol->wartosci[j],j);
